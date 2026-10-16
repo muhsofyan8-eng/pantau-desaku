@@ -1,0 +1,8 @@
+{
+  "name": "Klinik Desa - Layanan Konsultasi & Fasilitasi Desa Online",
+  "description": "Sistem informasi terpadu konsultasi, penjadwalan Google Meet, rekomendasi, dokumentasi, dan monitoring tindak lanjut tata kelola pemerintahan desa.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
