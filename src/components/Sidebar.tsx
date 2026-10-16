@@ -11,8 +11,9 @@ import {
   FolderArchive, 
   TrendingUp, 
   Settings,
-  HelpCircle,
-  Sparkles
+  ShieldCheck,
+  Building,
+  ChevronRight
 } from 'lucide-react';
 import { UserRole } from '../types/clinic';
 
@@ -22,7 +23,12 @@ export interface MenuItem {
   description: string;
   icon: any;
   badge?: number;
-  badgeColor?: string;
+  badgeType?: 'alert' | 'info' | 'live';
+}
+
+interface MenuSection {
+  title: string;
+  items: MenuItem[];
 }
 
 interface SidebarProps {
@@ -47,80 +53,100 @@ export const Sidebar: React.FC<SidebarProps> = ({
   isMobileOpen,
   onCloseMobile
 }) => {
-  const menuItems: MenuItem[] = [
+  const sections: MenuSection[] = [
     {
-      id: 'dashboard',
-      label: 'Dashboard',
-      description: 'Statistik & agenda Klinik Desa',
-      icon: Home,
+      title: 'Layanan Konsultasi',
+      items: [
+        {
+          id: 'dashboard',
+          label: 'Dashboard Ikhtisar',
+          description: 'Statistik & agenda utama',
+          icon: Home,
+        },
+        {
+          id: 'daftar_konsultasi',
+          label: 'Daftar Konsultasi',
+          description: 'Pengajuan & verifikasi berkas',
+          icon: FileEdit,
+          badge: counts.pendingCount > 0 ? counts.pendingCount : undefined,
+          badgeType: 'alert'
+        },
+        {
+          id: 'jadwal_klinik',
+          label: 'Jadwal Fasilitasi',
+          description: 'Kalender sesi online OPD',
+          icon: Calendar,
+          badge: counts.scheduledCount > 0 ? counts.scheduledCount : undefined,
+          badgeType: 'info'
+        },
+        {
+          id: 'google_meet',
+          label: 'Ruang Tatap Muka',
+          description: 'Sesi video & notulensi langsung',
+          icon: Video,
+          badge: counts.ongoingCount > 0 ? counts.ongoingCount : undefined,
+          badgeType: 'live'
+        },
+      ]
     },
     {
-      id: 'daftar_konsultasi',
-      label: 'Daftar Konsultasi',
-      description: 'Pengajuan masalah & kebutuhan desa',
-      icon: FileEdit,
-      badge: counts.pendingCount > 0 ? counts.pendingCount : undefined,
-      badgeColor: 'bg-amber-500 text-white'
+      title: 'Hasil & Akuntabilitas',
+      items: [
+        {
+          id: 'konsultasi',
+          label: 'Risalah Pembahasan',
+          description: 'Identifikasi masalah & telaah',
+          icon: FileText,
+        },
+        {
+          id: 'rekomendasi',
+          label: 'Lembar Rekomendasi',
+          description: 'Solusi & Berita Acara resmi',
+          icon: CheckCircle2,
+        },
+        {
+          id: 'monitoring',
+          label: 'Monitoring Progres',
+          description: 'Kepatuhan tindak lanjut desa',
+          icon: BarChart3,
+          badge: counts.followUpCount > 0 ? counts.followUpCount : undefined,
+          badgeType: 'info'
+        },
+      ]
     },
     {
-      id: 'jadwal_klinik',
-      label: 'Jadwal Klinik',
-      description: 'Jadwal konsultasi online & status',
-      icon: Calendar,
-      badge: counts.scheduledCount > 0 ? counts.scheduledCount : undefined,
-      badgeColor: 'bg-blue-600 text-white'
+      title: 'Referensi & Data',
+      items: [
+        {
+          id: 'dokumen',
+          label: 'Bank Regulasi & SOP',
+          description: 'Permendagri, Perda & Draf Perdes',
+          icon: FolderArchive,
+        },
+        {
+          id: 'tenaga_ahli',
+          label: 'Direktori Narasumber',
+          description: 'Daftar pejabat fungsional & OPD',
+          icon: Users,
+        },
+        {
+          id: 'laporan',
+          label: 'Laporan Rekapitulasi',
+          description: 'Ekspor data evaluasi berkala',
+          icon: TrendingUp,
+        },
+      ]
     },
     {
-      id: 'google_meet',
-      label: 'Google Meet',
-      description: 'Ruang konsultasi tatap muka virtual',
-      icon: Video,
-      badge: counts.ongoingCount > 0 ? counts.ongoingCount : undefined,
-      badgeColor: 'bg-emerald-500 text-white animate-pulse'
-    },
-    {
-      id: 'tenaga_ahli',
-      label: 'Tenaga Ahli / OPD',
-      description: 'Daftar bidang & profil narasumber',
-      icon: Users,
-    },
-    {
-      id: 'konsultasi',
-      label: 'Konsultasi',
-      description: 'Catatan masalah & hasil pembahasan',
-      icon: FileText,
-    },
-    {
-      id: 'rekomendasi',
-      label: 'Rekomendasi',
-      description: 'Solusi & Berita Acara resmi',
-      icon: CheckCircle2,
-    },
-    {
-      id: 'monitoring',
-      label: 'Monitoring',
-      description: 'Status tindak lanjut setiap desa',
-      icon: BarChart3,
-      badge: counts.followUpCount > 0 ? counts.followUpCount : undefined,
-      badgeColor: 'bg-indigo-600 text-white'
-    },
-    {
-      id: 'dokumen',
-      label: 'Dokumen',
-      description: 'Repositori regulasi & dokumen pendukung',
-      icon: FolderArchive,
-    },
-    {
-      id: 'laporan',
-      label: 'Laporan',
-      description: 'Rekapitulasi per kab/kota/desa',
-      icon: TrendingUp,
-    },
-    {
-      id: 'admin',
-      label: 'Admin',
-      description: 'Pengaturan slot, bidang & peran',
-      icon: Settings,
+      title: 'Pengaturan',
+      items: [
+        {
+          id: 'admin',
+          label: 'Administrasi Sistem',
+          description: 'Hak akses & audit aktivitas',
+          icon: Settings,
+        }
+      ]
     }
   ];
 
@@ -129,98 +155,110 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Mobile backdrop */}
       {isMobileOpen && (
         <div 
-          className="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-xs lg:hidden"
           onClick={onCloseMobile}
         />
       )}
 
       {/* Sidebar container */}
       <aside 
-        className={`fixed lg:static top-0 bottom-0 left-0 z-40 w-72 bg-white border-r border-slate-200 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed lg:sticky top-0 lg:top-18 bottom-0 left-0 z-40 w-72 bg-white border-r border-slate-200/90 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 h-screen lg:h-[calc(100vh-4.5rem)] shrink-0 ${
           isMobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Mobile Header */}
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between lg:hidden">
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between lg:hidden bg-slate-900 text-white">
           <div className="flex items-center gap-2">
-            <span className="font-extrabold text-slate-900">KLINIK DESA</span>
-            <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">Online</span>
+            <Building className="w-5 h-5 text-emerald-400" />
+            <span className="font-extrabold tracking-tight text-sm">KLINIK DESA ONLINE</span>
           </div>
           <button 
             onClick={onCloseMobile}
-            className="text-slate-400 hover:text-slate-600 p-1"
+            className="text-slate-400 hover:text-white p-1 text-sm font-bold"
           >
             ✕
           </button>
         </div>
 
-        {/* Workflow Quick Strip */}
-        <div className="px-4 py-3 bg-slate-50/70 border-b border-slate-100">
-          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1 flex items-center justify-between">
-            <span>Alur Layanan Desa</span>
-            <span className="text-[10px] font-medium text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
-              8 Tahapan
-            </span>
+        {/* Workflow Breadcrumb Strip */}
+        <div className="px-4 py-2.5 bg-slate-50 border-b border-slate-200/80">
+          <div className="flex items-center justify-between text-[10px] font-bold tracking-wider uppercase text-slate-500">
+            <span>SOP Tata Kelola</span>
+            <span className="text-emerald-700 font-extrabold">Terverifikasi</span>
           </div>
-          <p className="text-[11px] text-slate-600 leading-relaxed">
-            Daftar → Verifikasi → Jadwal → Meet → Konsultasi → Rekomendasi → Tindak Lanjut → Monitoring
+          <p className="text-[11px] text-slate-600 mt-0.5 leading-snug">
+            Alur Terpadu: Usulan → Verifikasi → Jadwal → Meet → Rekomendasi
           </p>
         </div>
 
-        {/* Navigation Menu List */}
-        <nav className="flex-1 overflow-y-auto p-3 space-y-1">
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const isActive = activeMenu === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  onSelectMenu(item.id);
-                  onCloseMobile();
-                }}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left transition-all duration-150 group ${
-                  isActive 
-                    ? 'bg-emerald-600 text-white font-semibold shadow-sm shadow-emerald-600/30' 
-                    : 'text-slate-700 hover:bg-slate-100 font-medium'
-                }`}
-              >
-                <div className="flex items-center space-x-3 min-w-0">
-                  <div className={`p-1.5 rounded-lg transition-colors ${
-                    isActive 
-                      ? 'bg-emerald-700/50 text-white' 
-                      : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200 group-hover:text-slate-800'
-                  }`}>
-                    <Icon className="w-4 h-4 shrink-0" />
-                  </div>
-                  <div className="truncate">
-                    <div className="text-xs truncate">{item.label}</div>
-                    <div className={`text-[10px] truncate ${isActive ? 'text-emerald-100' : 'text-slate-400'}`}>
-                      {item.description}
-                    </div>
-                  </div>
-                </div>
+        {/* Navigation Sections */}
+        <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
+          {sections.map((sec, sIdx) => (
+            <div key={sIdx} className="space-y-1">
+              <div className="px-3 py-1 text-[10px] font-black tracking-wider uppercase text-slate-400">
+                {sec.title}
+              </div>
 
-                {item.badge !== undefined && (
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 ${item.badgeColor || 'bg-slate-200 text-slate-700'}`}>
-                    {item.badge}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+              {sec.items.map((item) => {
+                const Icon = item.icon;
+                const isActive = activeMenu === item.id;
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      onSelectMenu(item.id);
+                      onCloseMobile();
+                    }}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left transition-all duration-150 group border ${
+                      isActive 
+                        ? 'bg-emerald-800 text-white font-bold border-emerald-900 shadow-xs' 
+                        : 'border-transparent text-slate-700 hover:bg-slate-100/90 font-medium'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className={`p-1.5 rounded-lg shrink-0 transition-colors ${
+                        isActive 
+                          ? 'bg-emerald-900/80 text-emerald-300' 
+                          : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200 group-hover:text-slate-900'
+                      }`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs truncate">{item.label}</div>
+                        <div className={`text-[10px] truncate ${isActive ? 'text-emerald-200' : 'text-slate-400'}`}>
+                          {item.description}
+                        </div>
+                      </div>
+                    </div>
+
+                    {item.badge !== undefined && (
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 ml-1.5 ${
+                        isActive 
+                          ? 'bg-white text-emerald-900' 
+                          : item.badgeType === 'alert'
+                            ? 'bg-amber-100 text-amber-900 border border-amber-300'
+                            : item.badgeType === 'live'
+                              ? 'bg-emerald-100 text-emerald-900 border border-emerald-300 animate-pulse'
+                              : 'bg-slate-100 text-slate-700 border border-slate-300'
+                      }`}>
+                        {item.badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
         </nav>
 
-        {/* Slogan & Support footer */}
-        <div className="p-3 border-t border-slate-200 bg-slate-50/50">
-          <div className="p-3 rounded-xl bg-gradient-to-br from-emerald-500/10 via-teal-500/5 to-transparent border border-emerald-200/50 text-xs">
-            <div className="flex items-center gap-1.5 text-emerald-800 font-bold mb-1">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Klinik Desa Berintegritas</span>
+        {/* Institutional Footer */}
+        <div className="p-3.5 border-t border-slate-200 bg-slate-50/70">
+          <div className="flex items-center gap-2 text-slate-600">
+            <ShieldCheck className="w-4 h-4 text-emerald-700 shrink-0" />
+            <div className="text-[10px] leading-tight text-slate-500">
+              <strong className="text-slate-800 block">Sistem Resmi Terpadu</strong>
+              Bebas Pungli • Akuntabel • Berintegritas
             </div>
-            <p className="text-[11px] text-slate-600 leading-tight">
-              Layanan konsultasi fasilitasi regulasi, keuangan & BUMDes tanpa dipungut biaya (Gratis).
-            </p>
           </div>
         </div>
       </aside>

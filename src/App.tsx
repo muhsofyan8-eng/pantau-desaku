@@ -385,6 +385,30 @@ export default function App() {
         todaySessionCount={todaySessionsCount}
       />
 
+      {/* Executive Sub-Header / Breadcrumb Bar */}
+      <div className="bg-white border-b border-slate-200/80 px-4 sm:px-6 lg:px-8 py-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2 text-slate-500 font-medium">
+            <span className="hover:text-emerald-700 cursor-pointer transition-colors" onClick={() => setActiveMenu('dashboard')}>
+              Beranda
+            </span>
+            <span className="text-slate-300">/</span>
+            <span className="text-slate-900 font-bold capitalize">
+              {activeMenu === 'dashboard' ? 'Dashboard Ikhtisar' : activeMenu.replace('_', ' ')}
+            </span>
+          </div>
+
+          <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-500 font-medium">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span>WIB (Waktu Indonesia Barat)</span>
+            </span>
+            <span className="text-slate-300">·</span>
+            <span className="text-slate-700 font-semibold">Tahun Anggaran 2026</span>
+          </div>
+        </div>
+      </div>
+
       {/* Mobile Top Bar with Toggle Button */}
       <div className="lg:hidden bg-white border-b border-slate-200 px-4 py-2.5 flex items-center justify-between">
         <button
@@ -395,8 +419,8 @@ export default function App() {
           <span>Menu Navigasi</span>
         </button>
 
-        <span className="text-xs font-extrabold text-emerald-800">
-          {activeMenu.replace('_', ' ').toUpperCase()}
+        <span className="text-xs font-extrabold text-emerald-800 capitalize">
+          {activeMenu.replace('_', ' ')}
         </span>
       </div>
 
@@ -529,6 +553,23 @@ export default function App() {
           )}
         </main>
       </div>
+
+      {/* Official Executive Footer */}
+      <footer className="bg-white border-t border-slate-200/90 py-3.5 px-4 sm:px-6 lg:px-8 mt-auto">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-slate-900">Klinik Desa Online</span>
+            <span>·</span>
+            <span>Dinas Pemberdayaan Masyarakat dan Desa (DPMD)</span>
+          </div>
+
+          <div className="flex items-center gap-3 text-[11px] text-slate-500">
+            <span>Sistem Pemerintahan Berbasis Elektronik (SPBE)</span>
+            <span>·</span>
+            <span>Keamanan & Validasi Berkas Terverifikasi</span>
+          </div>
+        </div>
+      </footer>
 
       {/* Global Modals */}
       {scheduleModalTicket && (
