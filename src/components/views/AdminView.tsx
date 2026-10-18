@@ -88,7 +88,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
             </p>
           </div>
 
-          {/* Role: Tenaga Ahli / OPD */}
+          {/* Role: Tim Bidang Dinas PMD */}
           <div 
             onClick={() => onRoleChange('narasumber')}
             className={`p-4 rounded-xl border cursor-pointer transition-all ${
@@ -99,7 +99,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
           >
             <div className="flex items-center justify-between mb-2">
               <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
-                TA
+                BD
               </div>
               {activeRole === 'narasumber' && (
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-600 text-white">
@@ -107,9 +107,9 @@ export const AdminView: React.FC<AdminViewProps> = ({
                 </span>
               )}
             </div>
-            <h4 className="text-xs font-bold text-slate-900">Tenaga Ahli OPD / Fasilitator</h4>
+            <h4 className="text-xs font-bold text-slate-900">Tim 5 Bidang Dinas PMD</h4>
             <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-              Menerima agenda konsultasi Google Meet, mencatat notulensi telaah hukum, dan merumuskan lembar rekomendasi resmi.
+              Menerima agenda konsultasi Google Meet sesuai bidang keahlian, mencatat notulensi telaah hukum, dan merumuskan lembar rekomendasi resmi.
             </p>
           </div>
 
@@ -265,7 +265,7 @@ export const AdminView: React.FC<AdminViewProps> = ({
         <div>
           <h4 className="text-xs font-bold text-slate-900">Reset Data Demo ke Kondisi Awal</h4>
           <p className="text-[11px] text-slate-500 mt-0.5">
-            Kembalikan seluruh data konsultasi, tenaga ahli, dokumen regulasi, dan notulensi ke contoh data standar.
+            Kembalikan seluruh data konsultasi, profil 5 bidang PMD, dokumen regulasi, dan notulensi ke kondisi standar.
           </p>
         </div>
 

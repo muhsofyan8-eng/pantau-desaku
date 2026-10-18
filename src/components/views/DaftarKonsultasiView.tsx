@@ -20,7 +20,7 @@ import {
   ExternalLink,
   Check
 } from 'lucide-react';
-import { ConsultationTicket, IssueCategory, UserRole } from '../../types/clinic';
+import { ConsultationTicket, IssueCategory, UserRole, UserAccount } from '../../types/clinic';
 import { CATEGORY_LABELS } from '../../data/initialData';
 import { normalizeGoogleMeetCode, generateWhatsAppInvitation } from '../../services/storageService';
 
@@ -31,6 +31,7 @@ interface DaftarKonsultasiViewProps {
   onSelectTicketForMeet: (ticket: ConsultationTicket) => void;
   onOpenBeritaAcara: (ticket: ConsultationTicket) => void;
   onOpenScheduleModal: (ticket: ConsultationTicket) => void;
+  currentUser?: UserAccount | null;
 }
 
 export const DaftarKonsultasiView: React.FC<DaftarKonsultasiViewProps> = ({
@@ -39,18 +40,19 @@ export const DaftarKonsultasiView: React.FC<DaftarKonsultasiViewProps> = ({
   onAddConsultation,
   onSelectTicketForMeet,
   onOpenBeritaAcara,
-  onOpenScheduleModal
+  onOpenScheduleModal,
+  currentUser
 }) => {
   const [activeTab, setActiveTab] = useState<'form' | 'riwayat'>('form');
 
-  // Form states
-  const [namaDesa, setNamaDesa] = useState('Desa Sukamaju');
-  const [kecamatan, setKecamatan] = useState('Kecamatan Cilaku');
-  const [kabupaten, setKabupaten] = useState('Kabupaten Cianjur');
-  const [pemohonNama, setPemohonNama] = useState('');
-  const [pemohonJabatan, setPemohonJabatan] = useState('Sekretaris Desa');
-  const [pemohonKontak, setPemohonKontak] = useState('');
-  const [pemohonEmail, setPemohonEmail] = useState('');
+  // Form states with auto-fill from authenticated user
+  const [namaDesa, setNamaDesa] = useState(currentUser?.namaDesaKelurahan || 'Desa Sukamaju');
+  const [kecamatan, setKecamatan] = useState(currentUser?.kecamatan || 'Kecamatan Cilaku');
+  const [kabupaten, setKabupaten] = useState(currentUser?.kabupaten || 'Kabupaten Cianjur');
+  const [pemohonNama, setPemohonNama] = useState(currentUser?.nama || '');
+  const [pemohonJabatan, setPemohonJabatan] = useState(currentUser?.jabatan || 'Sekretaris Desa');
+  const [pemohonKontak, setPemohonKontak] = useState(currentUser?.telepon || '');
+  const [pemohonEmail, setPemohonEmail] = useState(currentUser?.email || '');
   const [bidang, setBidang] = useState<IssueCategory>('keuangan_apbdes');
   const [urgensi, setUrgensi] = useState<'Biasa' | 'Penting' | 'Mendesak'>('Penting');
   const [judulKonsultasi, setJudulKonsultasi] = useState('');
@@ -233,7 +235,7 @@ export const DaftarKonsultasiView: React.FC<DaftarKonsultasiViewProps> = ({
             </div>
             <h3 className="text-lg font-bold">Formulir Permohonan Fasilitasi Klinik Desa</h3>
             <p className="text-xs text-emerald-100 mt-1 max-w-2xl leading-relaxed">
-              Silakan lengkapi data profil desa, uraian kronologis masalah yang dihadapi, dan lampirkan dokumen pendukung untuk ditelaah oleh Tim Tenaga Ahli OPD sebelum sesi Google Meet.
+              Silakan lengkapi data profil desa, uraian kronologis masalah yang dihadapi, dan lampirkan dokumen pendukung untuk ditelaah oleh Tim Bidang terkait di Dinas PMD sebelum sesi Google Meet.
             </p>
           </div>
 

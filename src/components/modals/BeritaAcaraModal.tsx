@@ -100,7 +100,7 @@ export const BeritaAcaraModal: React.FC<BeritaAcaraModalProps> = ({
 
           {/* Opening Paragraph */}
           <div className="text-xs sm:text-sm text-justify leading-relaxed mb-4">
-            Pada hari ini, tanggal <span className="font-bold">{ticket.tanggalKonsultasi || ticket.tanggalPengajuan}</span>, telah diselenggarakan fasilitasi konsultasi daring melalui media resmi <em>Google Meet Klinik Desa</em> antara Tim Tenaga Ahli / Tim Pembina Organisasi Perangkat Daerah (OPD) dengan Pemerintah Desa pemohon dengan rincian sebagai berikut:
+            Pada hari ini, tanggal <span className="font-bold">{ticket.tanggalKonsultasi || ticket.tanggalPengajuan}</span>, telah diselenggarakan fasilitasi konsultasi daring melalui media resmi <em>Google Meet Pantau Desaku</em> antara Tim Bidang Dinas Pemberdayaan Masyarakat dan Desa (DPMD) dengan Pemerintah Desa/Kelurahan pemohon dengan rincian sebagai berikut:
           </div>
 
           {/* Information Table */}
@@ -218,9 +218,9 @@ export const BeritaAcaraModal: React.FC<BeritaAcaraModalProps> = ({
               </span>
             </div>
 
-            {/* Tenaga Ahli / OPD */}
+            {/* Bidang Dinas PMD */}
             <div>
-              <p className="text-slate-600 mb-1">Narasumber / Fasilitator OPD,</p>
+              <p className="text-slate-600 mb-1">Pejabat / Fasilitator Bidang Dinas PMD,</p>
               <p className="font-bold text-slate-800">{ticket.tenagaAhliInstansi || 'Dinas PMD'}</p>
               <div className="h-16 flex items-center justify-center my-2 text-slate-400 italic text-[11px]">
                 [ Ditandatangani Elektronik ]

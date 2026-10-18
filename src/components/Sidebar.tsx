@@ -125,8 +125,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         },
         {
           id: 'tenaga_ahli',
-          label: 'Direktori Narasumber',
-          description: 'Daftar pejabat fungsional & OPD',
+          label: 'Bidang Dinas PMD',
+          description: '5 Bidang Fasilitator DPMD',
           icon: Users,
         },
         {

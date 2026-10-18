@@ -8,25 +8,31 @@ export type ConsultationStatus =
   | 'ditolak';            // Needs revision or out of scope
 
 export type IssueCategory = 
-  | 'keuangan_apbdes'     // Pengelolaan Keuangan & APBDes, Siltap, BLT-DD
-  | 'pengadaan_barang_jasa' // Pengadaan Barang dan Jasa di Desa (PBJ)
-  | 'bumdes'              // Pendirian, Pendaftaran Berbadan Hukum & Pengelolaan BUMDes
-  | 'hukum_perdes'        // Penyusunan Produk Hukum & Peraturan Desa
-  | 'perencanaan_desa'    // RKPDes, RPJMDes, Musrenbangdes
-  | 'aset_tanah_desa'     // Pengelolaan Aset & Tanah Kas Desa (TKD)
-  | 'sosial_stunting'     // Penanganan Stunting, Posyandu, bansos desa
-  | 'kelembagaan_bpd';    // Hubungan Kerja Pemdes & BPD, Lembaga Kemasyarakatan
+  | 'pemerintahan_desa'   // 1. Bidang Pemerintahan Desa & Kelurahan
+  | 'kawasan_perdesaan'   // 2. Bidang Kawasan Perdesaan
+  | 'usaha_ekonomi_ttg'   // 3. Bidang Usaha Ekonomi Desa dan TTG
+  | 'kelembagaan_sosbud'  // 4. Bidang Pemberdayaan Kelembagaan dan Sosbud Masy.
+  | 'data_informasi'      // 5. Bidang Data dan Informasi
+  | 'keuangan_apbdes'
+  | 'pengadaan_barang_jasa'
+  | 'bumdes'
+  | 'hukum_perdes'
+  | 'perencanaan_desa'
+  | 'aset_tanah_desa'
+  | 'sosial_stunting'
+  | 'kelembagaan_bpd';
 
 export type UserRole = 
-  | 'desa'       // Aparatur Desa / Kelurahan (Kades, Sekdes, BPD)
-  | 'narasumber' // Tenaga Ahli OPD / Pendamping Desa (Inspektorat, PMD, Hukum, dll)
-  | 'admin';     // Tim Fasilitasi Sekretariat Klinik Desa (Dinas PMD)
+  | 'desa'       // Aparatur Desa / Kelurahan (Kades, Lurah, Sekdes, BPD)
+  | 'narasumber' // Tim Bidang Dinas PMD (5 Bidang Dinas PMD)
+  | 'admin';     // Tim Fasilitasi Sekretariat DPMD
 
 export interface ExpertProfile {
   id: string;
   nama: string;
   nip?: string;
-  instansi: string; // e.g. "Inspektorat Daerah", "Dinas PMD", "Bagian Hukum Setda", "BPKAD"
+  instansi: string; // e.g. "Dinas Pemberdayaan Masyarakat dan Desa (DPMD)"
+  bidangDinas: string; // e.g. "Bidang Pemerintahan Desa & Kelurahan"
   jabatan: string;
   bidangKeahlian: IssueCategory[];
   foto: string;
@@ -146,3 +152,22 @@ export interface ActivityLog {
   aktivitas: string;
   targetId?: string;
 }
+
+export interface UserAccount {
+  id: string;
+  nama: string;
+  email: string;
+  password?: string;
+  role: UserRole;
+  jabatan: string;
+  instansi: string;
+  namaDesaKelurahan?: string;
+  kecamatan?: string;
+  kabupaten?: string;
+  nip?: string;
+  telepon: string;
+  tanggalDaftar: string;
+  terakhirLogin: string;
+  avatar?: string;
+}
+

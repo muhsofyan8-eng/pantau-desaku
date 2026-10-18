@@ -72,7 +72,7 @@ export const IntegratedMeetRoom: React.FC<IntegratedMeetRoomProps> = ({
     {
       sender: ticket.pemohonNama,
       time: '10:04',
-      text: 'Pagi Pak Tenaga Ahli, kami siap memaparkan kendala nomenklatur di sistem Siskeudes.',
+      text: 'Pagi Bapak Tim Bidang DPMD, kami siap memaparkan kendala teknis dan administrasi yang dihadapi desa.',
       isMe: true
     }
   ]);
@@ -148,7 +148,7 @@ export const IntegratedMeetRoom: React.FC<IntegratedMeetRoomProps> = ({
     setChatMessages(prev => [
       ...prev,
       {
-        sender: activeRole === 'desa' ? ticket.pemohonNama : 'Tenaga Ahli PMD',
+        sender: activeRole === 'desa' ? ticket.pemohonNama : 'Fasilitator Bidang DPMD',
         time: timeStr,
         text: chatInput.trim(),
         isMe: true
@@ -257,7 +257,7 @@ export const IntegratedMeetRoom: React.FC<IntegratedMeetRoomProps> = ({
                   <p><strong>Pasal 1:</strong> Dalam hal terjadi keadaan darurat dan/atau keadaan mendesak, Kepala Desa berwenang melakukan pergeseran anggaran dari Belanja Tidak Terduga (BTT)...</p>
                   <p><strong>Pasal 2:</strong> Pergeseran sebagaimana dimaksud pada Pasal 1 dikoordinasikan bersama Badan Permusyawaratan Desa (BPD) dan dilaporkan kepada Bupati melalui Camat paling lambat 7 (tujuh) hari kerja...</p>
                   <p className="bg-amber-50 p-2 rounded border border-amber-200 text-amber-900 font-sans font-semibold text-[11px]">
-                    🔍 Catatan Telaah Tenaga Ahli PMD: Rumusan Pasal 2 telah selaras dengan Permendagri No. 20 Tahun 2018 Pasal 69.
+                    🔍 Catatan Telaah Tim Bidang DPMD: Rumusan Pasal 2 telah selaras dengan Permendagri No. 20 Tahun 2018 Pasal 69.
                   </p>
                 </div>
               </div>
@@ -279,10 +279,10 @@ export const IntegratedMeetRoom: React.FC<IntegratedMeetRoomProps> = ({
                 ) : (
                   <div className="flex flex-col items-center justify-center p-4 text-center">
                     <div className="w-18 h-18 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xl font-bold border-2 border-emerald-400 shadow-md">
-                      {activeRole === 'desa' ? 'DS' : 'TA'}
+                      {activeRole === 'desa' ? 'DS' : 'BD'}
                     </div>
                     <span className="text-xs font-semibold text-slate-300 mt-2">
-                      {activeRole === 'desa' ? ticket.pemohonNama : 'Tenaga Ahli PMD'} (Anda)
+                      {activeRole === 'desa' ? ticket.pemohonNama : 'Tim Bidang DPMD'} (Anda)
                     </span>
                     <span className="text-[10px] text-slate-500">Kamera Dinonaktifkan</span>
                   </div>

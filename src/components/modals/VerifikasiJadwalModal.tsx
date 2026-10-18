@@ -95,11 +95,11 @@ export const VerifikasiJadwalModal: React.FC<VerifikasiJadwalModalProps> = ({
             <div className="text-[11px] text-slate-500 mt-1">Pemohon: {ticket.pemohonNama} ({ticket.pemohonJabatan})</div>
           </div>
 
-          {/* Pilih Tenaga Ahli / OPD */}
+          {/* Pilih Fasilitator 5 Bidang Dinas PMD */}
           <div>
             <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
               <UserCheck className="w-3.5 h-3.5 text-blue-600" />
-              <span>Pilih Narasumber / Tenaga Ahli OPD</span>
+              <span>Pilih Pejabat / Fasilitator 5 Bidang Dinas PMD</span>
             </label>
             <select
               value={selectedExpertId}

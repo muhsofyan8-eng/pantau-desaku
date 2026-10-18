@@ -209,7 +209,7 @@ export const JadwalKlinikView: React.FC<JadwalKlinikViewProps> = ({
                       <div className="text-xs text-slate-600 flex flex-wrap items-center gap-x-4 gap-y-1 pt-1">
                         <span className="flex items-center gap-1">
                           <UserCheck className="w-3.5 h-3.5 text-blue-600" />
-                          <span>Tenaga Ahli: <strong>{ticket.tenagaAhliNama || 'Belum Ditugaskan'}</strong></span>
+                          <span>Fasilitator Bidang: <strong>{ticket.tenagaAhliNama || 'Belum Ditugaskan'}</strong></span>
                         </span>
                         <span>•</span>
                         <span>Instansi: {ticket.tenagaAhliInstansi || 'Dinas PMD'}</span>

@@ -93,7 +93,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           </div>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
-            Pusat informasi dan fasilitasi terpadu tata kelola pemerintahan, regulasi, keuangan, dan pelayanan masyarakat yang menghubungkan aparatur desa & kelurahan secara langsung dengan Tim Tenaga Ahli OPD melalui ruang tatap muka digital dan rekomendasi resmi.
+            Pusat informasi dan fasilitasi terpadu tata kelola pemerintahan, regulasi, keuangan, dan pelayanan masyarakat yang menghubungkan aparatur desa & kelurahan secara langsung dengan 5 Bidang Dinas Pemberdayaan Masyarakat dan Desa (DPMD) melalui ruang tatap muka digital dan rekomendasi resmi.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">

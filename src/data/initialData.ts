@@ -1,43 +1,69 @@
 import { ConsultationTicket, ExpertProfile, RepositoryDocument, IssueCategory, ActivityLog } from '../types/clinic';
 
-export const CATEGORY_LABELS: Record<IssueCategory, { label: string; badgeColor: string; iconName: string }> = {
+export const CATEGORY_LABELS: Record<string, { label: string; badgeColor: string; iconName: string }> = {
+  pemerintahan_desa: {
+    label: '1. Bidang Pemerintahan Desa & Kelurahan',
+    badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+    iconName: 'Building2'
+  },
+  kawasan_perdesaan: {
+    label: '2. Bidang Kawasan Perdesaan',
+    badgeColor: 'bg-blue-100 text-blue-800 border-blue-300',
+    iconName: 'Landmark'
+  },
+  usaha_ekonomi_ttg: {
+    label: '3. Bidang Usaha Ekonomi Desa dan TTG',
+    badgeColor: 'bg-amber-100 text-amber-800 border-amber-300',
+    iconName: 'Coins'
+  },
+  kelembagaan_sosbud: {
+    label: '4. Bidang Pemberdayaan Kelembagaan dan Sosbud Masy.',
+    badgeColor: 'bg-purple-100 text-purple-800 border-purple-300',
+    iconName: 'Users'
+  },
+  data_informasi: {
+    label: '5. Bidang Data dan Informasi',
+    badgeColor: 'bg-teal-100 text-teal-800 border-teal-300',
+    iconName: 'FileSpreadsheet'
+  },
+  // Backwards compatibility mappings
   keuangan_apbdes: {
-    label: 'Keuangan & APBDes',
+    label: 'Bidang Pemerintahan Desa & Kelurahan (Keuangan)',
     badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300',
     iconName: 'Coins'
   },
   pengadaan_barang_jasa: {
-    label: 'Pengadaan Barang & Jasa (PBJ)',
+    label: 'Bidang Pemerintahan Desa & Kelurahan (PBJ)',
     badgeColor: 'bg-blue-100 text-blue-800 border-blue-300',
     iconName: 'ShoppingCart'
   },
   bumdes: {
-    label: 'Pengelolaan & Badan Hukum BUMDes',
+    label: 'Bidang Usaha Ekonomi Desa dan TTG (BUMDes)',
     badgeColor: 'bg-amber-100 text-amber-800 border-amber-300',
     iconName: 'Building2'
   },
   hukum_perdes: {
-    label: 'Hukum & Peraturan Desa',
+    label: 'Bidang Pemerintahan Desa & Kelurahan (Peraturan Desa)',
     badgeColor: 'bg-purple-100 text-purple-800 border-purple-300',
     iconName: 'Scale'
   },
   perencanaan_desa: {
-    label: 'Perencanaan (RPJMDes / RKPDes)',
+    label: 'Bidang Kawasan Perdesaan (Perencanaan Wilayah)',
     badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-300',
     iconName: 'FileSpreadsheet'
   },
   aset_tanah_desa: {
-    label: 'Aset & Tanah Kas Desa (TKD)',
+    label: 'Bidang Pemerintahan Desa & Kelurahan (Aset Desa)',
     badgeColor: 'bg-rose-100 text-rose-800 border-rose-300',
     iconName: 'Landmark'
   },
   sosial_stunting: {
-    label: 'Sosial, Stunting & Posyandu',
+    label: 'Bidang Pemberdayaan Kelembagaan dan Sosbud Masy.',
     badgeColor: 'bg-teal-100 text-teal-800 border-teal-300',
     iconName: 'HeartPulse'
   },
   kelembagaan_bpd: {
-    label: 'Kelembagaan & Hubungan BPD',
+    label: 'Bidang Pemberdayaan Kelembagaan dan Sosbud Masy. (BPD)',
     badgeColor: 'bg-sky-100 text-sky-800 border-sky-300',
     iconName: 'Users'
   }
@@ -45,14 +71,15 @@ export const CATEGORY_LABELS: Record<IssueCategory, { label: string; badgeColor:
 
 export const INITIAL_EXPERTS: ExpertProfile[] = [
   {
-    id: 'exp-01',
+    id: 'bidang-01',
     nama: 'Drs. H. Bambang Suhartono, M.Si',
     nip: '19740512 199903 1 004',
     instansi: 'Dinas Pemberdayaan Masyarakat dan Desa (DPMD)',
-    jabatan: 'Kepala Bidang Bina Pemerintahan Desa & Fasilitasi Keuangan',
-    bidangKeahlian: ['keuangan_apbdes', 'perencanaan_desa'],
+    bidangDinas: 'Bidang Pemerintahan Desa & Kelurahan',
+    jabatan: 'Kepala Bidang Pemerintahan Desa & Kelurahan',
+    bidangKeahlian: ['pemerintahan_desa', 'keuangan_apbdes'],
     foto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=256&q=80',
-    email: 'bambang.dpmd@kabupaten.go.id',
+    email: 'pemdes.dpmd@kabupaten.go.id',
     telepon: '0812-3456-7890',
     statusKetersediaan: 'Tersedia',
     jadwalPiket: 'Senin & Rabu (09:00 - 15:00 WIB)',
@@ -60,14 +87,15 @@ export const INITIAL_EXPERTS: ExpertProfile[] = [
     ratingKepuasan: 4.9
   },
   {
-    id: 'exp-02',
-    nama: 'Siti Rahmawati, S.H., M.H.',
-    nip: '19810820 200501 2 008',
-    instansi: 'Bagian Hukum Sekretariat Daerah',
-    jabatan: 'Analis Hukum Ahli Madya / Fasilitator Perdes',
-    bidangKeahlian: ['hukum_perdes', 'aset_tanah_desa'],
-    foto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80',
-    email: 'siti.hukum@kabupaten.go.id',
+    id: 'bidang-02',
+    nama: 'Ir. H. Dedi Mulyadi, M.T.',
+    nip: '19780315 200212 1 003',
+    instansi: 'Dinas Pemberdayaan Masyarakat dan Desa (DPMD)',
+    bidangDinas: 'Bidang Kawasan Perdesaan',
+    jabatan: 'Kepala Bidang Kawasan Perdesaan',
+    bidangKeahlian: ['kawasan_perdesaan', 'perencanaan_desa'],
+    foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80',
+    email: 'kawasan.dpmd@kabupaten.go.id',
     telepon: '0813-8899-2211',
     statusKetersediaan: 'Tersedia',
     jadwalPiket: 'Selasa & Kamis (09:00 - 14:00 WIB)',
@@ -75,29 +103,15 @@ export const INITIAL_EXPERTS: ExpertProfile[] = [
     ratingKepuasan: 4.85
   },
   {
-    id: 'exp-03',
-    nama: 'Ir. Hendro Prabowo, S.T., CFrA',
-    nip: '19790315 200312 1 002',
-    instansi: 'Inspektorat Daerah (Inspektur Pembantu Wilayah III)',
-    jabatan: 'Auditor Ahli Madya - Pengawas Dana Desa & PBJ',
-    bidangKeahlian: ['pengadaan_barang_jasa', 'keuangan_apbdes'],
-    foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=256&q=80',
-    email: 'hendro.inspektorat@kabupaten.go.id',
-    telepon: '0811-9876-543',
-    statusKetersediaan: 'Sedang Konsultasi',
-    jadwalPiket: 'Rabu & Jumat (08:30 - 12:00 WIB)',
-    totalKonsultasiDitangani: 44,
-    ratingKepuasan: 4.95
-  },
-  {
-    id: 'exp-04',
+    id: 'bidang-03',
     nama: 'Agus Triyono, S.E., M.M.',
     nip: '19850614 201001 1 015',
-    instansi: 'Dinas Koperasi, UKM & Perdagangan / DPMD',
-    jabatan: 'Koordinator Pengembangan Ekonomi Desa & BUMDes',
-    bidangKeahlian: ['bumdes', 'keuangan_apbdes'],
+    instansi: 'Dinas Pemberdayaan Masyarakat dan Desa (DPMD)',
+    bidangDinas: 'Bidang Usaha Ekonomi Desa dan TTG',
+    jabatan: 'Kepala Bidang Usaha Ekonomi Desa dan TTG',
+    bidangKeahlian: ['usaha_ekonomi_ttg', 'bumdes'],
     foto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=256&q=80',
-    email: 'agus.bumdes@kabupaten.go.id',
+    email: 'ekonomi.ttg@kabupaten.go.id',
     telepon: '0815-6789-012',
     statusKetersediaan: 'Tersedia',
     jadwalPiket: 'Senin s/d Kamis (10:00 - 15:30 WIB)',
@@ -105,33 +119,35 @@ export const INITIAL_EXPERTS: ExpertProfile[] = [
     ratingKepuasan: 4.8
   },
   {
-    id: 'exp-05',
-    nama: 'dr. Novita Anggraini, M.Kes',
-    nip: '19871103 201402 2 001',
-    instansi: 'Dinas Kesehatan & Sub-Koordinator Kesmas',
-    jabatan: 'Fasilitator Penanganan Stunting Terintegrasi Desa',
-    bidangKeahlian: ['sosial_stunting'],
-    foto: 'https://images.unsplash.com/photo-1594824813515-77983637e6f8?auto=format&fit=crop&w=256&q=80',
-    email: 'novita.dinkes@kabupaten.go.id',
+    id: 'bidang-04',
+    nama: 'Hj. Ratna Komala, S.Sos., M.AP.',
+    nip: '19821018 200604 2 009',
+    instansi: 'Dinas Pemberdayaan Masyarakat dan Desa (DPMD)',
+    bidangDinas: 'Bidang Pemberdayaan Kelembagaan dan Sosbud Masy.',
+    jabatan: 'Kepala Bidang Pemberdayaan Kelembagaan dan Sosbud Masy.',
+    bidangKeahlian: ['kelembagaan_sosbud', 'kelembagaan_bpd'],
+    foto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&q=80',
+    email: 'kelembagaan.sosbud@kabupaten.go.id',
     telepon: '0812-4433-2211',
     statusKetersediaan: 'Tersedia',
-    jadwalPiket: 'Selasa & Jumat (09:00 - 14:00 WIB)',
-    totalKonsultasiDitangani: 19,
+    jadwalPiket: 'Rabu & Jumat (08:30 - 14:30 WIB)',
+    totalKonsultasiDitangani: 24,
     ratingKepuasan: 4.9
   },
   {
-    id: 'exp-06',
-    nama: 'Rahmat Hidayat, S.Sos (TAPM)',
-    nip: '-',
-    instansi: 'Tenaga Ahli Pemberdayaan Masyarakat (TAPM P3MD Kemendesa PDTT)',
-    jabatan: 'Tenaga Ahli Kebijakan Publik & Partisipasi Kelembagaan Desa',
-    bidangKeahlian: ['kelembagaan_bpd', 'perencanaan_desa', 'hukum_perdes'],
+    id: 'bidang-05',
+    nama: 'Ahmad Fauzi, S.Kom., M.T.I.',
+    nip: '19880722 201101 1 007',
+    instansi: 'Dinas Pemberdayaan Masyarakat dan Desa (DPMD)',
+    bidangDinas: 'Bidang Data dan Informasi',
+    jabatan: 'Kepala Bidang Data dan Informasi / Pranata Komputer Madya',
+    bidangKeahlian: ['data_informasi'],
     foto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=256&q=80',
-    email: 'rahmat.tapm@kemendesa.go.id',
+    email: 'datainfo.dpmd@kabupaten.go.id',
     telepon: '0852-7788-9900',
     statusKetersediaan: 'Tersedia',
     jadwalPiket: 'Setiap Hari Kerja (08:30 - 16:00 WIB)',
-    totalKonsultasiDitangani: 52,
+    totalKonsultasiDitangani: 42,
     ratingKepuasan: 4.92
   }
 ];
@@ -168,7 +184,7 @@ export const INITIAL_CONSULTATIONS: ConsultationTicket[] = [
       { nama: 'Dokumentasi_Foto_Kerusakan_Jalan.zip', tipe: 'ZIP', ukuran: '8.2 MB', tanggal: '2026-10-02' }
     ],
     daftarPeserta: [
-      { nama: 'Drs. H. Bambang Suhartono, M.Si', jabatan: 'Tenaga Ahli DPMD', instansi: 'DPMD', kehadiran: true },
+      { nama: 'Drs. H. Bambang Suhartono, M.Si', jabatan: 'Kabid Pemerintahan Desa & Kelurahan', instansi: 'DPMD', kehadiran: true },
       { nama: 'Kuswandi', jabatan: 'Kepala Desa Sukamaju', instansi: 'Pemerintah Desa', kehadiran: true },
       { nama: 'Ahmad Syafi\'i, S.IP', jabatan: 'Sekretaris Desa', instansi: 'Pemerintah Desa', kehadiran: true },
       { nama: 'Endang Sumarna', jabatan: 'Ketua BPD Sukamaju', instansi: 'BPD', kehadiran: true },
@@ -177,7 +193,7 @@ export const INITIAL_CONSULTATIONS: ConsultationTicket[] = [
     notulensiKonsultasi: {
       waktuMulaiRiil: '10:02 WIB',
       waktuSelesaiRiil: 'Sedang berlangsung...',
-      rangkumanPembahasan: 'Konsultasi daring dibuka oleh Tenaga Ahli DPMD. Pemdes memaparkan urgensi alokasi BTT pasca bencana luapan banjir. DPMD menegaskan bahwa sesuai Permendagri No. 20/2018 Pasal 69, penanganan keadaan darurat dan mendesak dapat dilakukan mendahului perubahan APBDes dengan menerbitkan Peraturan Kepala Desa (Perkades) tentang Perubahan Penjabaran APBDes.',
+      rangkumanPembahasan: 'Konsultasi daring dibuka oleh Tim Bidang Pemerintahan Desa & Kelurahan DPMD. Pemdes memaparkan urgensi alokasi BTT pasca bencana luapan banjir. DPMD menegaskan bahwa sesuai Permendagri No. 20/2018 Pasal 69, penanganan keadaan darurat dan mendesak dapat dilakukan mendahului perubahan APBDes dengan menerbitkan Peraturan Kepala Desa (Perkades) tentang Perubahan Penjabaran APBDes.',
       pokokMasalahTeridentifikasi: [
         'Mekanisme pergeseran pos Belanja Tidak Terduga (BTT) ke kegiatan operasional fisik kebencanaan',
         'Persyaratan administrasi surat penetapan status darurat dari Camat / BPBD setempat',

@@ -17,6 +17,9 @@ import { VerifikasiJadwalModal } from './components/modals/VerifikasiJadwalModal
 import { BeritaAcaraModal } from './components/modals/BeritaAcaraModal';
 import { TindakLanjutModal } from './components/modals/TindakLanjutModal';
 import { GoogleMeetLauncherModal } from './components/modals/GoogleMeetLauncherModal';
+import { ProfileModal } from './components/modals/ProfileModal';
+import { AuthView } from './components/views/AuthView';
+import { getCurrentUser, logout } from './services/authService';
 
 import { 
   ConsultationTicket, 
@@ -24,7 +27,8 @@ import {
   RepositoryDocument, 
   ActivityLog, 
   UserRole,
-  RecommendationItem 
+  RecommendationItem,
+  UserAccount
 } from './types/clinic';
 
 import { 
@@ -53,6 +57,10 @@ export default function App() {
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // User Authentication state
+  const [currentUser, setCurrentUser] = useState<UserAccount | null>(() => getCurrentUser());
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+
   // Modals state
   const [scheduleModalTicket, setScheduleModalTicket] = useState<ConsultationTicket | null>(null);
   const [beritaAcaraModalTicket, setBeritaAcaraModalTicket] = useState<ConsultationTicket | null>(null);
@@ -74,7 +82,13 @@ export default function App() {
     setExperts(getStoredExperts());
     setDocuments(getStoredDocuments());
     setLogs(getStoredLogs());
-    setActiveRoleState(getActiveRole());
+    const user = getCurrentUser();
+    setCurrentUser(user);
+    if (user) {
+      setActiveRoleState(user.role);
+    } else {
+      setActiveRoleState(getActiveRole());
+    }
   };
 
   useEffect(() => {
@@ -100,7 +114,7 @@ export default function App() {
   const handleRoleChange = (role: UserRole) => {
     setActiveRole(role);
     setActiveRoleState(role);
-    showToast(`Beralih ke peran: ${role === 'desa' ? 'Pemerintah Desa' : role === 'narasumber' ? 'Tenaga Ahli OPD' : 'Admin PMD'}`);
+    showToast(`Beralih ke peran: ${role === 'desa' ? 'Pemerintah Desa' : role === 'narasumber' ? 'Tim Bidang DPMD' : 'Admin PMD'}`);
   };
 
   // Add new consultation
@@ -202,7 +216,7 @@ export default function App() {
 
     saveStoredConsultations(updated);
     addActivityLog(
-      activeRole === 'desa' ? 'Pemerintah Desa' : 'Tenaga Ahli OPD',
+      activeRole === 'desa' ? 'Pemerintah Desa' : 'Fasilitator Bidang DPMD',
       activeRole,
       `Memperbarui catatan notulensi hasil pembahasan Google Meet`,
       ticketId
@@ -243,8 +257,8 @@ export default function App() {
 
     saveStoredConsultations(updated);
     addActivityLog(
-      ticket.tenagaAhliNama || 'Tenaga Ahli OPD',
-      'Narasumber OPD',
+      ticket.tenagaAhliNama || 'Fasilitator Bidang DPMD',
+      'Tim Bidang DPMD',
       `Menuntaskan sesi konsultasi daring dan menerbitkan Lembar Rekomendasi Resmi (${baNumber})`,
       ticket.id
     );
@@ -275,7 +289,7 @@ export default function App() {
 
     saveStoredConsultations(updated);
     addActivityLog(
-      activeRole === 'desa' ? 'Pemerintah Desa' : 'Tenaga Ahli PMD',
+      activeRole === 'desa' ? 'Pemerintah Desa' : 'Fasilitator Bidang DPMD',
       activeRole,
       `Memperbarui bukti dukung & progres tindak lanjut (${progress}% tercapai)`,
       ticketId
@@ -306,8 +320,8 @@ export default function App() {
 
     saveStoredConsultations(updated);
     addActivityLog(
-      'Narasumber OPD',
-      'Tenaga Ahli',
+      'Fasilitator Bidang DPMD',
+      'Tim Bidang DPMD',
       `Menambahkan poin arahan solusi baru untuk ${ticket.namaDesa}`,
       ticketId
     );
@@ -360,6 +374,28 @@ export default function App() {
   const followUpCount = consultations.filter(c => c.status === 'tindak_lanjut').length;
   const todaySessionsCount = consultations.filter(c => c.tanggalKonsultasi === '2026-10-04' || c.status === 'berlangsung').length;
 
+  // If user is not authenticated, render the Login / Sign Up Page
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-slate-900 font-sans">
+        {toastMessage && (
+          <div className="fixed top-4 right-4 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700 animate-in fade-in slide-in-from-top-2">
+            <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span className="text-xs font-semibold">{toastMessage}</span>
+          </div>
+        )}
+        <AuthView
+          onLoginSuccess={(user) => {
+            setCurrentUser(user);
+            setActiveRoleState(user.role);
+            setActiveRole(user.role);
+            showToast(`Selamat datang, ${user.nama} (${user.jabatan})`);
+          }}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
       
@@ -383,6 +419,13 @@ export default function App() {
         onRoleChange={handleRoleChange}
         onNavigate={(menu) => setActiveMenu(menu)}
         todaySessionCount={todaySessionsCount}
+        currentUser={currentUser}
+        onOpenProfile={() => setIsProfileModalOpen(true)}
+        onLogout={() => {
+          logout();
+          setCurrentUser(null);
+          showToast('Anda telah berhasil keluar dari sistem Pantau Desaku.');
+        }}
       />
 
       {/* Executive Sub-Header / Breadcrumb Bar */}
@@ -462,6 +505,7 @@ export default function App() {
               onSelectTicketForMeet={handleSelectTicketForMeet}
               onOpenBeritaAcara={(ticket) => setBeritaAcaraModalTicket(ticket)}
               onOpenScheduleModal={(ticket) => setScheduleModalTicket(ticket)}
+              currentUser={currentUser}
             />
           )}
 
@@ -605,6 +649,18 @@ export default function App() {
           isOpen={!!launcherModalTicket}
           onClose={() => setLauncherModalTicket(null)}
           onUpdateMeetCode={handleUpdateMeetCode}
+        />
+      )}
+
+      {currentUser && isProfileModalOpen && (
+        <ProfileModal
+          user={currentUser}
+          isOpen={isProfileModalOpen}
+          onClose={() => setIsProfileModalOpen(false)}
+          onUpdateUser={(updated) => {
+            setCurrentUser(updated);
+            showToast('Profil Anda berhasil diperbarui.');
+          }}
         />
       )}
     </div>
