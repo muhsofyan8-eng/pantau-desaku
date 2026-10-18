@@ -79,10 +79,10 @@ export const BeritaAcaraModal: React.FC<BeritaAcaraModalProps> = ({
                   Dinas Pemberdayaan Masyarakat dan Desa
                 </h2>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-emerald-800">
-                  Sekretariat Fasilitasi & Layanan Terpadu “Klinik Desa”
+                  Sekretariat Layanan “Pantau Desaku” — Pusat Informasi Terpadu Desa dan Kelurahan
                 </h3>
                 <p className="text-[10px] text-slate-500 font-normal">
-                  Kompleks Perkantoran Pemerintah Daerah • Hotline Konsultasi Daring: (0263) 261889 • Email: klinikdesa@{ticket.kabupaten.toLowerCase().replace(/\s+/g, '')}.go.id
+                  Kompleks Perkantoran Pemerintah Daerah • Hotline Konsultasi Daring: (0263) 261889 • Email: pantaudesaku@{ticket.kabupaten.toLowerCase().replace(/\s+/g, '')}.go.id
                 </p>
               </div>
             </div>

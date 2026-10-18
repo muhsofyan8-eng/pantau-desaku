@@ -82,15 +82,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
           <div className="space-y-1">
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white font-sans">
-              KLINIK DESA ELEKTRONIK
+              PANTAU DESAKU
             </h1>
-            <p className="text-sm sm:text-base font-medium text-emerald-300 italic">
+            <p className="text-sm sm:text-base font-bold text-emerald-300">
+              Pusat Informasi Terpadu Desa dan Kelurahan
+            </p>
+            <p className="text-xs text-slate-400 italic">
               “Datang dengan Masalah, Pulang dengan Solusi”
             </p>
           </div>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
-            Pusat layanan asistensi regulasi, tata kelola keuangan, dan pendampingan BUMDes yang menghubungkan pemerintah desa dengan Tim Fungsional OPD melalui ruang video tatap muka terverifikasi dan lembar Berita Acara Rekomendasi resmi.
+            Pusat informasi dan fasilitasi terpadu tata kelola pemerintahan, regulasi, keuangan, dan pelayanan masyarakat yang menghubungkan aparatur desa & kelurahan secara langsung dengan Tim Tenaga Ahli OPD melalui ruang tatap muka digital dan rekomendasi resmi.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -332,7 +335,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             {/* Footer Table Link */}
             <div className="p-3 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs">
               <span className="text-slate-500 font-medium">
-                Menampilkan data terverifikasi Sistem Klinik Desa
+                Menampilkan data terverifikasi Sistem Pantau Desaku
               </span>
               <button
                 onClick={() => onNavigate('jadwal_klinik')}

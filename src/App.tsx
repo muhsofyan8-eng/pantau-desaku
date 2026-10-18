@@ -558,9 +558,9 @@ export default function App() {
       <footer className="bg-white border-t border-slate-200/90 py-3.5 px-4 sm:px-6 lg:px-8 mt-auto">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
           <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-900">Klinik Desa Online</span>
+            <span className="font-bold text-slate-900">Pantau Desaku</span>
             <span>·</span>
-            <span>Dinas Pemberdayaan Masyarakat dan Desa (DPMD)</span>
+            <span>Pusat Informasi Terpadu Desa dan Kelurahan</span>
           </div>
 
           <div className="flex items-center gap-3 text-[11px] text-slate-500">

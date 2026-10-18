@@ -153,12 +153,13 @@ export const normalizeGoogleMeetCode = (input: string): { code: string; url: str
 
 // Format official WhatsApp invitation message
 export const generateWhatsAppInvitation = (ticket: ConsultationTicket): string => {
-  const code = ticket.googleMeetCode || (ticket.googleMeetLink ? ticket.googleMeetLink.split('/').pop() : 'klinik-desa');
+  const code = ticket.googleMeetCode || (ticket.googleMeetLink ? ticket.googleMeetLink.split('/').pop() : 'pantau-desa');
   const meetLink = ticket.googleMeetLink || `https://meet.google.com/${code}`;
   const jam = ticket.waktuMulai ? `${ticket.waktuMulai} - ${ticket.waktuSelesai || '11:15'} WIB` : 'Menyesuaikan Jadwal';
   const tgl = ticket.tanggalKonsultasi || ticket.tanggalPengajuan;
 
-  return `*UNDANGAN KONSULTASI ONLINE KLINIK DESA*
+  return `*UNDANGAN FASILITASI RESMI — PANTAU DESAKU*
+*Pusat Informasi Terpadu Desa dan Kelurahan*
 No. Registrasi: ${ticket.nomorRegistrasi}
 
 Yth. Bapak/Ibu Aparatur ${ticket.namaDesa} & Tim Narasumber OPD,
@@ -169,7 +170,7 @@ Berikut adalah jadwal dan akses ruang tatap muka Google Meet resmi:
 📅 *Hari/Tanggal:* ${tgl}
 ⏰ *Waktu:* ${jam}
 📋 *Agenda/Masalah:* ${ticket.judulKonsultasi}
-👨‍💼 *Narasumber OPD:* ${ticket.tenagaAhliNama || 'Tim Fasilitator Dinas PMD'}
+👨‍💼 *Narasumber OPD:* ${ticket.tenagaAhliNama || 'Tim Fasilitator Teknis'}
 
 🎥 *Tautan Google Meet Langsung:*
 ${meetLink}
@@ -180,11 +181,11 @@ ${meetLink}
 _Panduan Peserta:_
 1. Klik tautan di atas atau buka Google Meet lalu masukkan kode rapat: *${code}*
 2. Dimohon hadir 10 menit sebelum jadwal konsultasi dimulai.
-3. Siapkan dokumen APBDes / Draf Perdes / SPJ terkait untuk pembahasan.
+3. Siapkan dokumen APBDes / Draf Perdes / SPJ terkait untuk pembahasan bersama.
 4. Lembar Rekomendasi Resmi & Berita Acara akan langsung diterbitkan setelah sesi selesai.
 
 Terima kasih.
-— *Sekretariat Layanan Klinik Desa Online*`;
+— *Sekretariat Pantau Desaku — Pusat Informasi Terpadu Desa dan Kelurahan*`;
 };
 
 // Reset app data

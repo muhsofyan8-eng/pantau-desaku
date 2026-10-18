@@ -77,14 +77,14 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-base sm:text-lg font-black tracking-tight text-slate-950 font-sans">
-                  KLINIK <span className="text-emerald-700">DESA</span>
+                  PANTAU <span className="text-emerald-700">DESAKU</span>
                 </span>
                 <span className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 border border-emerald-200">
-                  DPMD
+                  TERPADU
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium tracking-tight truncate max-w-[260px] sm:max-w-md">
-                Sistem Konsultasi & Fasilitasi Tata Kelola Pemerintahan Desa
+                Pusat Informasi Terpadu Desa dan Kelurahan
               </p>
             </div>
           </div>

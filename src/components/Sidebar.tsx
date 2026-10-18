@@ -170,7 +170,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="p-4 border-b border-slate-200 flex items-center justify-between lg:hidden bg-slate-900 text-white">
           <div className="flex items-center gap-2">
             <Building className="w-5 h-5 text-emerald-400" />
-            <span className="font-extrabold tracking-tight text-sm">KLINIK DESA ONLINE</span>
+            <span className="font-extrabold tracking-tight text-sm">PANTAU DESAKU</span>
           </div>
           <button 
             onClick={onCloseMobile}
